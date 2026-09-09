@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Private Anyday Robot</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            background-color: #1e272e; 
+            padding: 50px; 
+            color: white;
+        }
+        .card { 
+            background: #2f3640; 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3); 
+            display: inline-block; 
+        }
+        h1 { 
+            color: #f5f6fa; 
+            margin-bottom: 5px;
+        }
+        p {
+            font-size: 18px;
+            color: #dcdde1;
+            margin-bottom: 30px;
+        }
+        .highlight-day {
+            color: #f1c40f;
+            font-weight: bold;
+        }
+        .iconic-green-button { 
+            background-color: #2ecc71; 
+            width: 120px; 
+            height: 120px; 
+            border-radius: 50%; 
+            border: 8px solid #27ae60; 
+            cursor: pointer; 
+            outline: none;
+            box-shadow: 0 8px 0 #1e7e34, 0 15px 20px rgba(0,0,0,0.5);
+            transition: all 0.1s ease;
+            margin: 20px 0;
+            display: inline-block;
+        }
+        .iconic-green-button:active {
+            transform: translateY(6px);
+            box-shadow: 0 2px 0 #1e7e34, 0 5px 10px rgba(0,0,0,0.5);
+        }
+        .number-box { 
+            font-size: 26px; 
+            font-weight: bold; 
+            color: #4cd137; 
+            margin: 25px 0 10px 0; 
+            min-height: 35px;
+        }
+        .pb-box { 
+            font-size: 26px; 
+            font-weight: bold; 
+            color: #e84118; 
+            margin: 10px 0;
+            min-height: 35px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>🤖 My Private Anyday Robot</h1>
+        <p>Smash the giant green button to run the <span id="dynamic-day" class="highlight-day"></span> calculations!</p>
+        <button class="iconic-green-button" onclick="generateNumbers()"></button>
+        <div class="number-box" id="main-nums"></div>
+        <div class="pb-box" id="pb-num"></div>
+    </div>
+
+    <script>
+        // --- PASSWORD PROTECTION ---
+        // Change "Secret123" inside the quotes to your secret password!
+        let password = prompt("🔒 Please enter the secret password to use the Robot:");
+        if (password !== "KERRYWANTSB33R") {
+            alert("❌ Wrong password! Access Denied.");
+            document.body.innerHTML = "<h1>🔒 This website is private.</h1>";
+        }
+
+        function setTodayDay() {
+            let today = new Date();
+            let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            let currentDay = days[today.getDay()];
+            document.getElementById("dynamic-day").innerText = currentDay;
+        }
+        setTodayDay();
+
+        function generateNumbers() {
+            let mainPool = [];
+            while(mainPool.length < 7) {
+                let r = Math.floor(Math.random() * 35) + 1;
+                if(mainPool.indexOf(r) === -1) mainPool.push(r);
+            }
+            mainPool.sort((a, b) => a - b);
+            let powerball = Math.floor(Math.random() * 20) + 1;
+            document.getElementById("main-nums").innerText = "🎯 Main Numbers: " + mainPool.join(", ");
+            document.getElementById("pb-num").innerText = "⚡ Powerball: " + powerball;
+        }
+    </script>
+
+</body>
+</html>
